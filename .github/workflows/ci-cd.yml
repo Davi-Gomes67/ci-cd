@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,6 +37,6 @@ jobs:
           git config --global user.email "davi-gomes67@users.noreply.github.com"
 
       - name: Deploy to GitHub Pages
-        run: npm run deploy
+        run: npx gh-pages -d build -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
